@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<FormProvider {...form}>
+  <form onSubmit={onSubmit}>
+    {/* Trouble with Schoolwork */}
+    <FormLabel htmlFor="troubleWithSchoolwork">Have you ever had trouble with schoolwork or projects, like assignments or reports?</FormLabel>
+    <RadioGroup
+      id="troubleWithSchoolwork"
+      name="troubleWithSchoolwork"
+      register={register}
+      options={[
+        { label: 'Yes', value: true },
+        { label: 'No', value: false }
+      ]}
+    />
+    {errors.troubleWithSchoolwork && <span role="alert">This field is required</span>}
+    
+    {/* Help Sources */}
+    <FormLabel>When you get stuck, where do you usually go for help? Pick all that fit:</FormLabel>
+    <RadioGroupItem
+      id="askingFriends"
+      name="helpSources"
+      label="Asking friends or classmates"
+      register={register}
+      value="askingFriends"
+    />
+    <RadioGroupItem
+      id="searchingOnline"
+      name="helpSources"
+      label="Searching online (like Google)"
+      register={register}
+      value="searchingOnline"
+    />
+    <RadioGroupItem
+      id="watchingTutorials"
+      name="helpSources"
+      label="Watching tutorials on YouTube"
+      register={register}
+      value="watchingTutorials"
+    />
+    <RadioGroupItem
+      id="checkingForums"
+      name="helpSources"
+      label="Checking out forums or groups online"
+      register={register}
+      value="checkingForums"
+    />
+    <RadioGroupItem
+      id="otherHelpSources"
+      name="helpSources"
+      label="Other"
+      register={register}
+      value="otherHelpSources"
+    />
+    {errors.helpSources && <span role="alert">Please select at least one help source</span>}
+    
+    {/* Help Sources Other */}
+    {form.watch("helpSources").includes("otherHelpSources") && (
+      <>
+        <label htmlFor="helpSourcesOther">Please specify other help sources:</label>
+        <input type="text" id="helpSourcesOther" {...register("helpSourcesOther")} />
+        {errors.helpSourcesOther && <span role="alert">{errors.helpSourcesOther.message}</span>}
+      </>
+    )}
 
-## Getting Started
+    {/* Satisfaction with Help */}
+    <FormLabel htmlFor="satisfactionWithHelp">Are you happy with the help you find when you're stuck?</FormLabel>
+    <RadioGroup
+      id="satisfactionWithHelp"
+      name="satisfactionWithHelp"
+      register={register}
+      options={[
+        { label: 'Very happy', value: 'very-satisfied' },
+        { label: 'Kind of happy', value: 'satisfied' },
+        { label: 'It\'s okay', value: 'It\'s okay' },
+        { label: 'Not really happy', value: 'unsatisfied' },
+        { label: 'Not happy at all', value: 'very-unsatisfied' }
+      ]}
+    />
+    {errors.satisfactionWithHelp && <span role="alert">This field is required</span>}
 
-First, run the development server:
+    {/* Add other fields similarly */}
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+    {/* Submit Button */}
+    <button type="submit" disabled={isSubmitting}>Submit</button>
+  </form>
+</FormProvider>
